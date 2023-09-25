@@ -322,7 +322,7 @@
 
   </dependencies>
   <build>
-    <finalName>study</finalName>
+    <finalName>study1</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>
