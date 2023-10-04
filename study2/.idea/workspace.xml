@@ -11,9 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="666e3c47-7ecc-45c8-9366-93daa4bd318c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study2_test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/study2_test.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +54,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/kim/springStudy/study3",
+    "last_opened_file_path": "D:/kim/springStudy/study5",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -246,6 +245,8 @@
       <workItem from="1695619816878" duration="1295000" />
       <workItem from="1695621120312" duration="6864000" />
       <workItem from="1695628133680" duration="192000" />
+      <workItem from="1696376479867" duration="269000" />
+      <workItem from="1696376756222" duration="10000" />
     </task>
     <servers />
   </component>

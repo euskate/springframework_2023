@@ -805,7 +805,7 @@ D:\kim\springStudy\study2\src\main\resources 디렉토리에서 마우스 오른
 
 ![mappers 디렉토리 생성](./capture/setting09_5.png)
 
-- D:\kim\springStudy\study2\src\main\resources\mappers 디렉토리에서 마우스 오른쪽 버튼 을 누르고 나오는 메뉴에서 [New]-[Directory] 를 선택하고, 입력 란에 testMapper.xml을 입력하고, Enter를 칩니다.
+- D:\kim\springStudy\study2\src\main\resources\mappers 디렉토리에서 마우스 오른쪽 버튼 을 누르고 나오는 메뉴에서 [New]-[File] 을 선택하고, 입력 란에 testMapper.xml을 입력하고, Enter를 칩니다.
 
 ![testMapper.xml 파일 생성](./capture/setting09_51.png)
 
@@ -1151,19 +1151,223 @@ public class Test {
 
 ## 03-1. 데이터베이스 테이블 만들기
 
+### 1) 마리아DB 다운로드 및 설치
+https://mariadb.org/download/?t=mariadb&p=mariadb&r=11.0.3&os=windows&cpu=x86_64&pkg=msi&m=blendbyte
+
+![마리아DB 다운로드](./capture/spring030102.png)
+
+### 2) HeidiSQL 다운로드 및 설치
+https://www.heidisql.com/download.php
+
+![Test 클래스 작성](./capture/spring030101.png)
+
+<br>
+
 ## 03-2. Spring Framework MVC Domain 작성
+
+### 1) domain 패키지 생성
+
+### 2) TestVO.java (클래스) 생성
+
+```java
+package kr.ed.haebeop.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TestVO {
+    private int num;
+    private String title;
+}
+```
+
+<br>
 
 ## 03-3. Spring Framework MVC Mapper 작성
 
+### 1) testMapper.xml에 새로운 문장 등록
+
+<br>
+
 ## 03-4. Spring Framework MVC Repository 구현
+
+### 1) repository 패키지 생성
+
+### 2) TestRepository.java (인터페이스) 추상체 생성
+
+```java
+package kr.ed.haebeop.repository;
+
+import kr.ed.haebeop.domain.TestVO;
+
+import java.util.List;
+
+public interface TestRepository {
+    public List<TestVO> testList() throws Exception;
+}
+```
+
+### 3) TestRepositoryImpl.java (클래스) 구현체 생성
+
+```java
+package kr.ed.haebeop.repository;
+import kr.ed.haebeop.domain.TestVO;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class TestRepositoryImpl implements TestRepository {
+
+    @Autowired
+    private SqlSession sqlSession;
+
+    @Override
+    public List<TestVO> testList() throws Exception {
+        return sqlSession.selectList("test.testList");
+    }
+}
+```
+
+<br>
 
 ## 03-5. Spring Framework MVC Service 구현
 
+### 1) service 패키지 생성
+
+### 2) TestService.java (인터페이스) 추상체 생성
+
+```java
+package kr.ed.haebeop.service;
+import kr.ed.haebeop.domain.TestVO;
+import java.util.List;
+
+public interface TestService {
+    public List<TestVO> testList() throws Exception;
+}
+```
+
+### 3) TestServiceImpl.java (클래스) 구현체 생성
+
+```java
+package kr.ed.haebeop.service;
+
+import kr.ed.haebeop.domain.TestVO;
+import kr.ed.haebeop.repository.TestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TestServiceImpl implements TestService {
+
+    @Autowired
+    private TestRepository testRepository2;
+
+    @Override
+    public List<TestVO> testList() throws Exception {
+        return testRepository2.testList();
+    }
+}
+```
+
+<br>
+
 ## 03-6. Spring Framework MVC Bean 설정 및 추가
+
+### 1) ApplicationConfig.java에 TestVO에 대한 Repository 및 Service 빈(Bean) 주입 
+
+```java
+package kr.ed.haebeop.config;
+
+import kr.ed.haebeop.repository.TestRepository;
+import kr.ed.haebeop.repository.TestRepositoryImpl;
+import kr.ed.haebeop.service.TestService;
+import kr.ed.haebeop.service.TestServiceImpl;
+import kr.ed.haebeop.test.transaction.TransactionRepository;
+import kr.ed.haebeop.test.transaction.TransactionService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+@Configuration
+@ComponentScan(basePackages = "kr.ed.haebeop")
+public class ApplicationConfig {
+    @Bean
+    public TestService testService3(){
+        return new TestServiceImpl();
+    }
+
+    @Bean
+    public TestRepository testRepository3(){
+        return new TestRepositoryImpl();
+    }
+
+    @Bean
+    public TransactionRepository tranRepository() { return new TransactionRepository(); }
+
+    @Bean
+    public TransactionService tranService() { return new TransactionService(); }
+}
+```
+
+<br>
 
 ## 03-7. Spring Framework MVC View(jsp) 구현
 
+### 1) testLisp.jsp 작성
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<c:forEach var="test" items="${testList}">
+    <p>${test.num}</p>
+    <p>${test.title}</p>
+    <hr>
+</c:forEach>
+</body>
+</html>
+```
+
+<br>
+
 ## 03-8. applicationContext.xml에 Bean을 등록하고, 주입 및 구현하기
+
+```xml
+  ... 중략 ...
+    <!-- 트랜잭션 및 DB 패키지 방안 및 각 종 로깅과 보안 설정 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <context:annotation-config/>
+    <bean id="testService" class="kr.ed.haebeop.service.TestServiceImpl" />
+    <bean id="testRepository" class="kr.ed.haebeop.repository.TestRepositoryImpl" />
+
+    <!-- @Transactional 어노테이션 처리 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+... 중략 ...    
+```
+
+<br>
 
 ## 03-9. 별도의 GenericXmlApplicationContext.xml에 Bean을 등록하고, 주입 및 구현하기
 
