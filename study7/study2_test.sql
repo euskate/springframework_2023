@@ -31,7 +31,3 @@ CREATE TABLE user(
     pt INT DEFAULT 0,
     visited INT DEFAULT 0
 );
-
-DESC USER;
-
-CREATE TABLE sample(id VARCHAR(100), pw VARCHAR(100));

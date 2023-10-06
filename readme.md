@@ -1411,20 +1411,22 @@ public class ApplicationConfig {
 <hr>
 <br>
 
-# 06. Spring Security 암호화 
+# 06. Spring Security 암호화와 인터셉터(Interceptor)
 
 ## 06-1. 암호화 패턴 설정
 
-## 06-2. 
+## 06-2. 인터셉터 설정
+
+
+# 07. Multipart와 FileUpload 기능 구현
 
 
 
-
-# 07. 인터셉터와 로그인 처리
-
-# 08. Multipart와 FileUpload 기능 구현
+# 08. 다국어 처리
 
 # 09. 여러 부가 기능 구현
+
+
 
 
 
