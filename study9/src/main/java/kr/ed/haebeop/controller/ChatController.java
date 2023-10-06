@@ -1,5 +1,6 @@
 package kr.ed.haebeop.controller;
 
+import kr.ed.haebeop.domain.ChatDTO;
 import org.springframework.stereotype.Controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import kr.ed.haebeop.domain.ChatRoom;
 import kr.ed.haebeop.service.ChatService;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class ChatController {
 
     @GetMapping("home")
     public String loadHome(Model model){
-        return "home";
+        return "/chat/chat";
     }
 
     @PostMapping("createRoom")
@@ -34,4 +36,13 @@ public class ChatController {
     public List<ChatRoom> findAllRooms(){
         return service.findAllRoom();
     }
+
+    @GetMapping("getRoom")
+    @ResponseBody
+    public ChatRoom getRoom(@RequestParam String roomId) { return service.findRoomById(roomId); }
+
+    @GetMapping("sendMsg")
+    public void sendMsg(@RequestParam WebSocketSession session, @RequestParam String message) { service.sendMessage(session, message); }
+
+
 }
